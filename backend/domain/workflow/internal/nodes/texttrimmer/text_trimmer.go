@@ -102,7 +102,7 @@ const OutputKey = "output"
 
 func (t *TextTrimmer) Invoke(ctx context.Context, input map[string]any) (map[string]any, error) {
 	// 获取输入文本 - 使用与 textprocessor 相同的参数名
-	value, ok := input["String"]
+	value, ok := input["String1"]
 	if !ok {
 		return nil, fmt.Errorf("input string required")
 	}

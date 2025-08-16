@@ -21,22 +21,24 @@ import {
 } from '@flowgram-adapter/free-layout-editor';
 
 import { getDefaultOutput } from '../utils';
+import { TRIMMER_DEFAULT_INPUTS } from '../constants';
 
 export const handleMethodChangeEffect: Effect = props => {
   const { value, context } = props;
   const { node } = context;
 
-  const formModel = node.getData(FlowNodeFormData).getFormModel<FormModelV2>();
+  const formModel = node.getData(FlowNodeFormData).getFormModel();
 
   if (!formModel) {
     return;
   }
 
-  // 设置默认输出
+  // 总是设置默认输出
   formModel.setValueIn('outputs', getDefaultOutput());
 
-  // 设置默认输入参数
-  formModel.setValueIn('inputParameters', [
-    { name: 'text' },
-  ]);
+  // 总是设置默认输入参数 - 无论方法如何变化
+  const currentInputs = formModel.getValueIn('inputParameters');
+  if (!currentInputs || currentInputs.length === 0) {
+    formModel.setValueIn('inputParameters', TRIMMER_DEFAULT_INPUTS);
+  }
 };

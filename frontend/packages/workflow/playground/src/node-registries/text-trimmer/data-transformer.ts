@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { get } from 'lodash-es';
-import { BlockInput, type InputValueDTO, ViewVariableType } from '@coze-workflow/base';
+import {get} from 'lodash-es';
+import {BlockInput, type InputValueDTO, ViewVariableType} from '@coze-workflow/base';
 
-import { TrimMethod, BACK_END_NAME_MAP, FIELD_NAME_MAP } from './constants';
-import { type TrimmerFormData, type TrimmerNodeData } from './types';
-import { getDefaultOutput } from './utils';
+import {TrimMethod, BACK_END_NAME_MAP, FIELD_NAME_MAP, TRIMMER_DEFAULT_INPUTS} from './constants';
+import {type TrimmerFormData, type TrimmerNodeData} from './types';
+import {getDefaultOutput} from './utils';
 import type {BackendData} from "@/node-registries/text-trimmer/types";
 
 /**
@@ -43,18 +43,29 @@ function getParam(params: InputValueDTO[], name: string) {
  * @param value
  * @returns
  */
-export const formatOnInit = (value: any): BackendData => {
+export const formatOnInit = (value: any): TrimmerFormData => {
+  console.info("TextTrimmer formatOnInit called with value:", value);
+
   // 初始化时没有值，返回默认设置
   if (!value) {
-    return {
+    const defaultData = {
       method: TrimMethod.LeadingTrailing,
-      inputParameters: [],
+      inputParameters: TRIMMER_DEFAULT_INPUTS,
       outputs: getDefaultOutput(),
+      nodeMeta: {
+        title: '文本去空格',
+        icon: '',
+        description: '去除文本中的空格字符',
+        mainColor: '#3071F2',
+        subTitle: '文本去空格'
+      },
     };
+    console.info("TextTrimmer formatOnInit returning default data:", defaultData);
+    return defaultData;
   }
-  console.info("value -=-->" ,value);
-  const { nodeMeta, inputs, outputs } = value;
-  const { trimParams } = inputs || {};
+  console.info("value -=-->", value);
+  const {nodeMeta, inputs, outputs} = value;
+  const {trimParams} = inputs || {};
 
   const baseValue: TrimmerFormData = {
     method: TrimMethod.LeadingTrailing,
@@ -79,6 +90,15 @@ export const formatOnInit = (value: any): BackendData => {
 
   return baseValue;
 };
+/**
+ * Find a field in InputValueDTO
+ * @param params
+ * @param name
+ * @returns
+ */
+function getParam(params: InputValueDTO[], name: string) {
+  return params.find(item => item.name === name);
+}
 
 /**
  * 前端表单数据 -> 后端数据
@@ -86,36 +106,30 @@ export const formatOnInit = (value: any): BackendData => {
  * @returns
  */
 export const formatOnSubmit = (value: TrimmerFormData): any => {
-  const { method, customChars, inputParameters, nodeMeta, outputs } = value;
-  const baseValue = {
-    nodeMeta,
-    inputs: {
-      method,
-      inputParameters,
-    },
-    outputs,
-  };
-  const trimParams: InputValueDTO[] = [
-    {
-      name: BACK_END_NAME_MAP.trimType,
-      input: BlockInput.fromLiteral(method),
-    },
+  const {method, customChars, inputParameters, nodeMeta, outputs} = value;
+
+  const trimParams: any[] = [
+    // 去空格类型
+    BlockInput.createString(BACK_END_NAME_MAP.trimType, method),
   ];
 
   // 如果是自定义模式，添加自定义字符参数
   if (method === TrimMethod.Custom && customChars) {
-    trimParams.push({
-      name: BACK_END_NAME_MAP.customChars,
-      input: BlockInput.fromLiteral(customChars),
-    });
+    trimParams.push(
+      BlockInput.createString(BACK_END_NAME_MAP.customChars, customChars)
+    );
   }
-  console.info(baseValue,"baseValue text-trimmer.baseValue")
-  return {
+
+  const result = {
     nodeMeta,
     inputs: {
+      method,
       inputParameters,
       trimParams,
     },
     outputs,
   };
+
+  console.info(result, "baseValue text-trimmer.baseValue");
+  return result;
 };

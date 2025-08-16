@@ -18,7 +18,7 @@ import { ViewVariableType } from '@coze-workflow/base';
 import { I18n } from '@coze-arch/i18n';
 
 import { NodeConfigForm } from '@/node-registries/common/components';
-import { useWatch } from '@/form';
+import { useWatch, InputField } from '@/form';
 
 import { OutputsField } from '../common/fields';
 import { InputParameters } from '../common/components';
@@ -28,7 +28,7 @@ import {
   // 使用 text-process 的 Inputs 组件
 } from './components';
 // 导入 text-process 的 Inputs 组件
-import { Inputs } from '../text-process/components';
+import { Inputs } from '../text-trimmer/components';
 
 const Render = () => {
   // 监听去空格方法变化
@@ -53,6 +53,16 @@ const Render = () => {
         inputType={ViewVariableType.String}
         disabledTypes={ViewVariableType.getComplement([ViewVariableType.String])}
       />
+
+      {/* 自定义字符配置 */}
+      {needCustomChars && (
+        <InputField
+          name="customChars"
+          label="自定义字符"
+          placeholder="请输入要去除的字符"
+          tooltip="指定要去除的自定义字符"
+        />
+      )}
 
       {/* 输出参数 */}
       <OutputsField

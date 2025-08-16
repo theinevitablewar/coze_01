@@ -31,7 +31,6 @@ import { formatOnInit, formatOnSubmit } from './data-transformer';
 import { handleMethodChangeEffect } from './effects/handle-method-change-effect';
 import { TrimMethod } from './constants';
 import { type TrimmerFormData } from './types';
-import {handleMethodChangeEffect} from "@/node-registries/text-process/effects/handle-method-change-effect";
 
 export const FORM_META: FormMetaV2<TrimmerFormData> = {
   render: () => <Render />,
@@ -65,8 +64,6 @@ export const FORM_META: FormMetaV2<TrimmerFormData> = {
       },
     ],
   },
-  transformer: {
-    onInit: formatOnInit,
-    onSubmit: formatOnSubmit,
-  },
+  formatOnInit,
+  formatOnSubmit,
 };

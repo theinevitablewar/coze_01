@@ -36,7 +36,7 @@ export const MethodSelectorSetter = ({ name }: { name: string }) => {
         <SelectField
           name={name}
           readonly={readonly}
-          defaultValue={TrimMethod.All}
+          defaultValue={TrimMethod.LeadingTrailing}
           optionList={TRIM_METHOD_OPTIONS}
           data-testid={getNodeSetterId('text-method-select')}
         />
