@@ -52,16 +52,26 @@ func (c *Config) Adapt(ctx context.Context, n *vo.Node, opts ...nodes.AdaptOptio
 	}
 
 	// 从前端配置中获取去空格类型
-	if n.Data.Inputs.TrimParams != nil && len(n.Data.Inputs.TrimParams) > 0 {
+	if n.Data.Inputs != nil && n.Data.Inputs.TrimParams != nil && len(n.Data.Inputs.TrimParams) > 0 {
 		for _, param := range n.Data.Inputs.TrimParams {
+			if param == nil || param.Input == nil || param.Input.Value == nil {
+				continue // 跳过空的参数
+			}
+
 			if param.Name == "trimType" {
-				c.Type = TrimType(param.Input.Value.Content.(string))
+				if content, ok := param.Input.Value.Content.(string); ok {
+					c.Type = TrimType(content)
+				}
 			} else if param.Name == "customChars" {
-				c.CustomChars = param.Input.Value.Content.(string)
+				if content, ok := param.Input.Value.Content.(string); ok {
+					c.CustomChars = content
+				}
 			}
 		}
-	} else {
-		// 默认去除首尾空格
+	}
+
+	// 如果没有设置类型，使用默认值
+	if c.Type == "" {
 		c.Type = TrimLeadingTrailing
 	}
 

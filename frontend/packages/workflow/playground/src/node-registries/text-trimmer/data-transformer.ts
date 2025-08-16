@@ -19,6 +19,9 @@ import { BlockInput, type InputValueDTO, ViewVariableType } from '@coze-workflow
 
 import { TrimMethod, BACK_END_NAME_MAP, FIELD_NAME_MAP } from './constants';
 import { type TrimmerFormData, type TrimmerNodeData } from './types';
+import { getDefaultOutput } from './utils';
+import type {BackendData} from "@/node-registries/text-trimmer/types";
+import {Logger} from "@coze-arch/logger";
 
 /**
  * 在 InputValueDTO 中查找字段
@@ -27,22 +30,13 @@ import { type TrimmerFormData, type TrimmerNodeData } from './types';
  * @returns
  */
 function getParam(params: InputValueDTO[], name: string) {
-  return params.find(item => item.name === name);
-}
-
-/**
- * 获取默认输出
- * @returns
- */
-function getDefaultOutput() {
-  return [
-    {
-      id: 'output',
-      name: 'output',
-      type: ViewVariableType.String,
-      editable: false,
-    },
-  ];
+  if (!Array.isArray(params)) return undefined;
+  for (let i = 0; i < params.length; i++) {
+    if ((params[i] as any).name === name) {
+      return params[i];
+    }
+  }
+  return undefined;
 }
 
 /**
@@ -50,17 +44,16 @@ function getDefaultOutput() {
  * @param value
  * @returns
  */
-export const formatOnInit = (value: any): TrimmerFormData => {
+export const formatOnInit = (value: any): BackendData => {
   // 初始化时没有值，返回默认设置
   if (!value) {
     return {
       method: TrimMethod.LeadingTrailing,
       inputParameters: [],
       outputs: getDefaultOutput(),
-      nodeMeta: undefined,
     };
   }
-
+  Logger.info("value -=-->" ,value);
   const { nodeMeta, inputs, outputs } = value;
   const { trimParams } = inputs || {};
 

@@ -28,8 +28,10 @@ import { fireNodeTitleChange } from '@/nodes-v2/materials/fire-node-title-change
 import { createValueExpressionInputValidate } from '../common/validators';
 import Render from './form';
 import { formatOnInit, formatOnSubmit } from './data-transformer';
+import { handleMethodChangeEffect } from './effects/handle-method-change-effect';
 import { TrimMethod } from './constants';
 import { type TrimmerFormData } from './types';
+import {handleMethodChangeEffect} from "@/node-registries/text-process/effects/handle-method-change-effect";
 
 export const FORM_META: FormMetaV2<TrimmerFormData> = {
   render: () => <Render />,
@@ -52,12 +54,17 @@ export const FORM_META: FormMetaV2<TrimmerFormData> = {
         : undefined;
     },
   },
-  effects: [
-    // 节点标题变化
-    fireNodeTitleChange,
-    // 提供节点输出变量
-    provideNodeOutputVariablesEffect,
-  ],
+  effect: {
+    nodeMeta: fireNodeTitleChange,
+    outputs: provideNodeOutputVariablesEffect,
+    // 监听处理方法变化
+    method: [
+      {
+        effect: handleMethodChangeEffect,
+        event: DataEvent.onValueChange,
+      },
+    ],
+  },
   transformer: {
     onInit: formatOnInit,
     onSubmit: formatOnSubmit,

@@ -14,9 +14,22 @@
  * limitations under the License.
  */
 
-import { InputValueVO, NodeMeta, ViewVariableMeta } from '@coze/workflow-base';
-
+import {
+  type InputValueVO,
+  type NodeDataDTO,
+  type ViewVariableMeta,
+  type BlockInput,
+  type VariableMetaDTO,
+} from '@coze-workflow/base';
 import { TrimMethod } from './constants';
+
+export interface NodeMeta {
+  title: string;
+  icon: string;
+  subTitle: string;
+  description: string;
+  mainColor: string;
+}
 
 export interface TrimmerFormData {
   method: TrimMethod;
@@ -35,4 +48,14 @@ export interface TrimmerNodeData {
       };
     };
   }>;
+}
+
+/** backend data structure */
+export interface BackendData extends NodeDataDTO {
+  nodeMeta: NodeMeta;
+  inputs: NodeDataDTO['inputs'] & {
+    // trim parameter
+    method?: TrimMethod;
+  };
+  outputs: VariableMetaDTO[];
 }

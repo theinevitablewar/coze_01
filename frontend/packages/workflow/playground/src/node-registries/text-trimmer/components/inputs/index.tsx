@@ -60,8 +60,8 @@ export const Inputs = withFieldArray(
     return (
       <Section
         ref={sectionRef}
-        title={'title'}
-        tooltip={'tooltip'}
+        title={'输入'}
+        tooltip={'这是输入'}
         isEmpty={!value || value?.length === 0}
         emptyText={'参数不能为空'}
         actions={[

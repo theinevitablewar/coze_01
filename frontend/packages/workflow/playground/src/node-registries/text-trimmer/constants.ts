@@ -77,3 +77,7 @@ export const COMMON_CUSTOM_CHARS = [
   { label: '标点符号', value: '.,;:!?' },
   { label: '数字', value: '0123456789' },
 ];
+
+export const TRIMMER_DEFAULT_INPUTS = [
+  { name: `${PREFIX_STR}1`, input: { type: 'ref' } },
+];

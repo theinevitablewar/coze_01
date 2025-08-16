@@ -22,14 +22,13 @@ import { useWatch } from '@/form';
 
 import { OutputsField } from '../common/fields';
 import { InputParameters } from '../common/components';
-import { TrimMethod, TRIM_METHOD_OPTIONS, COMMON_CUSTOM_CHARS } from './constants';
+import {TrimMethod, TRIM_METHOD_OPTIONS, COMMON_CUSTOM_CHARS, TRIMMER_DEFAULT_INPUTS} from './constants';
 import {
   MethodSelectorSetter,
   Inputs,
   // ConcatSetting,
   // DelimiterSelectorField,
 } from './components';
-import {CONCAT_DEFAULT_INPUTS} from "@/node-registries/text-process/constants";
 
 const Render = () => {
   // 监听去空格方法变化
@@ -46,7 +45,7 @@ const Render = () => {
       {/* 输入参数 */}
       <Inputs
         name="inputParameters"
-        defaultValue={CONCAT_DEFAULT_INPUTS}
+        defaultValue={TRIMMER_DEFAULT_INPUTS}
         minItems={1}
         maxItems={ Number.MAX_SAFE_INTEGER}
         inputType={ViewVariableType.String}
