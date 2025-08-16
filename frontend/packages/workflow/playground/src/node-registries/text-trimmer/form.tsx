@@ -16,14 +16,20 @@
 
 import { ViewVariableType } from '@coze-workflow/base';
 import { I18n } from '@coze-arch/i18n';
-import { Form, Select, Input } from '@coze-arch/ui';
 
 import { NodeConfigForm } from '@/node-registries/common/components';
 import { useWatch } from '@/form';
 
 import { OutputsField } from '../common/fields';
-import { Inputs } from '../common/components';
+import { InputParameters } from '../common/components';
 import { TrimMethod, TRIM_METHOD_OPTIONS, COMMON_CUSTOM_CHARS } from './constants';
+import {
+  MethodSelectorSetter,
+  Inputs,
+  ConcatSetting,
+  DelimiterSelectorField,
+} from './components';
+import {CONCAT_DEFAULT_INPUTS} from "@/node-registries/text-process/constants";
 
 const Render = () => {
   // 监听去空格方法变化
@@ -34,42 +40,19 @@ const Render = () => {
 
   return (
     <NodeConfigForm>
-      {/* 选择去空格方法 */}
-      <Form.Item
-        name="method"
-        label={I18n.t('workflow.node.text-trimmer.method.label')}
-        tooltip={I18n.t('workflow.node.text-trimmer.method.tooltip')}
-        required
-      >
-        <Select
-          placeholder={I18n.t('workflow.node.text-trimmer.method.placeholder')}
-          options={TRIM_METHOD_OPTIONS}
-        />
-      </Form.Item>
-
-      {/* 自定义字符输入 */}
-      {needCustomChars && (
-        <Form.Item
-          name="customChars"
-          label={I18n.t('workflow.node.text-trimmer.customChars.label')}
-          tooltip={I18n.t('workflow.node.text-trimmer.customChars.tooltip')}
-          required
-        >
-          <Input
-            placeholder={I18n.t('workflow.node.text-trimmer.customChars.placeholder')}
-            maxLength={50}
-          />
-        </Form.Item>
-      )}
+      {/* Select string application */}
+      <MethodSelectorSetter name="method" />
 
       {/* 输入参数 */}
       <Inputs
         name="inputParameters"
-        defaultValue={[]}
+        defaultValue={CONCAT_DEFAULT_INPUTS}
         minItems={1}
-        maxItems={1}
+        maxItems={ Number.MAX_SAFE_INTEGER}
         inputType={ViewVariableType.String}
-        disabledTypes={ViewVariableType.getComplement([ViewVariableType.String])}
+        disabledTypes={
+          []
+        }
       />
 
       {/* 输出参数 */}

@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-import {useWatch as useBaseWatch} from '@flowgram-adapter/free-layout-editor';
+export const getMaxIndex = (values: string[], prefixStr: string): number => {
+  if (!Array.isArray(values)) {
+    return 1;
+  }
 
-import {type FieldName} from '../type';
+  const maxIndex =
+    values.length === 0
+      ? 0
+      : Math.max(
+          ...values
+            .map(item => Number(item?.split(prefixStr)[1] ?? 0))
+            .filter(v => !isNaN(v)),
+        );
 
-/**
- * Monitors the value of the specified field.
- *
- * @Param name field name.
- * @Returns the value of the field.
- */
-export function useWatch<Value = unknown>(
-  name: FieldName | { name: FieldName },
-) {
-  const value = useBaseWatch(
-    typeof name === 'string' ? name : name.name,
-  ) as Value;
-
-  return value;
-}
+  return maxIndex + 1;
+};

@@ -36,6 +36,10 @@ type NodeConfigFormProps = PropsWithChildren<{
  * NodeConfigForm component
  * Used to display node configuration forms
  * @Param children - child component for rendering form content
+ * @param extraOperation
+ * @param batchModePath
+ * @param nodeDisabled
+ * @param readonlyAllowDeleteOperation
  */
 export function NodeConfigForm({
   children,

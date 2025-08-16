@@ -147,6 +147,7 @@ export const NODE_ORDER = {
   [StandardNodeType.TriggerUpsert]: 26,
   [StandardNodeType.TriggerRead]: 27,
   [StandardNodeType.TriggerDelete]: 28,
+  [StandardNodeType.TextTrimmer] : 61,
 };
 
 /** session class node */

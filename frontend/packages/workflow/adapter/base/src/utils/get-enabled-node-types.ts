@@ -35,6 +35,7 @@ export const getEnabledNodeTypes = (_params: {
     [StandardNodeType.Database]: true,
     [StandardNodeType.Output]: true,
     [StandardNodeType.Text]: true,
+    [StandardNodeType.TextTrimmer]:true,
     [StandardNodeType.Question]: true,
     [StandardNodeType.Break]: loopSelected,
     [StandardNodeType.SetVariable]: loopSelected,
