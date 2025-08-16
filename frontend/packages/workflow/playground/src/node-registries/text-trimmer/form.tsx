@@ -26,8 +26,8 @@ import { TrimMethod, TRIM_METHOD_OPTIONS, COMMON_CUSTOM_CHARS } from './constant
 import {
   MethodSelectorSetter,
   Inputs,
-  ConcatSetting,
-  DelimiterSelectorField,
+  // ConcatSetting,
+  // DelimiterSelectorField,
 } from './components';
 import {CONCAT_DEFAULT_INPUTS} from "@/node-registries/text-process/constants";
 
