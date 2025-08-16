@@ -35,6 +35,7 @@ export { OUTPUT_NODE_REGISTRY } from './output';
 export { QUESTION_NODE_REGISTRY } from './question';
 export { START_NODE_REGISTRY } from './start';
 export { TEXT_PROCESS_NODE_REGISTRY } from './text-process';
+export { TEXT_TRIMMER_NODE_REGISTRY } from './text-trimmer';
 export { TRIGGER_DELETE_NODE_REGISTRY } from './trigger-delete';
 export { TRIGGER_READ_NODE_REGISTRY } from './trigger-read';
 export { TRIGGER_UPSERT_NODE_REGISTRY } from './trigger-upsert';

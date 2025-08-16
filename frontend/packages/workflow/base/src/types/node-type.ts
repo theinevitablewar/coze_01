@@ -31,6 +31,7 @@ export enum StandardNodeType {
   Output = '13',
   Imageflow = '14',
   Text = '15',
+  TextTrimmer = '61',
   ImageGenerate = '16',
   ImageReference = '17',
   Question = '18',

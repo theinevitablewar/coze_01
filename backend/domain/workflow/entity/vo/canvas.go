@@ -127,6 +127,7 @@ type Inputs struct {
 	*Loop               // exclusive configurations for NodeTypeLoop
 	*Selector           // exclusive configurations for NodeTypeSelector
 	*TextProcessor      // exclusive configurations for NodeTypeTextProcessor
+	*TextTrimmer        // exclusive configurations for NodeTypeTextTrimmer
 	*SubWorkflow        // exclusive configurations for NodeTypeSubWorkflow
 	*IntentDetector     // exclusive configurations for NodeTypeIntentDetector
 	*DatabaseNode       // exclusive configurations for various Database nodes
@@ -179,6 +180,10 @@ type TextProcessor struct {
 	Method       TextProcessingMethod `json:"method,omitempty"`
 	ConcatParams []*Param             `json:"concatParams,omitempty"`
 	SplitParams  []*Param             `json:"splitParams,omitempty"`
+}
+
+type TextTrimmer struct {
+	TrimParams []*Param `json:"trimParams,omitempty"`
 }
 
 type VariableAssigner struct {

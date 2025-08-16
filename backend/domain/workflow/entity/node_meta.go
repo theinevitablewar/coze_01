@@ -122,6 +122,7 @@ const (
 	NodeTypeVariableAggregator         NodeType = "VariableAggregator"
 	NodeTypeIntentDetector             NodeType = "IntentDetector"
 	NodeTypeTextProcessor              NodeType = "TextProcessor"
+	NodeTypeTextTrimmer                NodeType = "TextTrimmer"
 	NodeTypeHTTPRequester              NodeType = "HTTPRequester"
 	NodeTypeLoop                       NodeType = "Loop"
 	NodeTypeContinue                   NodeType = "Continue"
@@ -408,6 +409,23 @@ var NodeTypeMetas = map[NodeType]*NodeTypeMeta{
 		},
 		EnUSName:        "Text Processing",
 		EnUSDescription: "The format used for handling multiple string-type variables.",
+	},
+	NodeTypeTextTrimmer: {
+		ID:           61,
+		Key:          NodeTypeTextTrimmer,
+		DisplayKey:   "TextTrimmer",
+		Name:         "文本去空格",
+		Category:     "utilities",
+		Desc:         "用于去除文本中的空格字符，支持去除首尾空格、全部空格等模式",
+		Color:        "#3071F2",
+		IconURL:      "https://lf3-static.bytednsdoc.com/obj/eden-cn/dvsmryvd_avi_dvsm/ljhwZthlaukjlkulzlp/icon/icon-StrConcat-v2.jpg",
+		SupportBatch: false,
+		ExecutableMeta: ExecutableMeta{
+			PreFillZero:      true,
+			InputSourceAware: true,
+		},
+		EnUSName:        "Text Trimmer",
+		EnUSDescription: "Remove whitespace characters from text, supports trimming leading/trailing spaces, all spaces, etc.",
 	},
 	NodeTypeQuestionAnswer: {
 		ID:           18,

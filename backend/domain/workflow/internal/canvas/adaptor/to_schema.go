@@ -51,7 +51,8 @@ import (
 	"github.com/coze-dev/coze-studio/backend/domain/workflow/internal/nodes/receiver"
 	"github.com/coze-dev/coze-studio/backend/domain/workflow/internal/nodes/selector"
 	"github.com/coze-dev/coze-studio/backend/domain/workflow/internal/nodes/subworkflow"
-	"github.com/coze-dev/coze-studio/backend/domain/workflow/internal/nodes/textprocessor"
+	"	"github.com/coze-dev/coze-studio/backend/domain/workflow/internal/nodes/textprocessor"
+	"github.com/coze-dev/coze-studio/backend/domain/workflow/internal/nodes/texttrimmer""
 	"github.com/coze-dev/coze-studio/backend/domain/workflow/internal/nodes/variableaggregator"
 	"github.com/coze-dev/coze-studio/backend/domain/workflow/internal/nodes/variableassigner"
 	"github.com/coze-dev/coze-studio/backend/domain/workflow/internal/schema"
@@ -634,6 +635,9 @@ func RegisterAllNodeAdaptors() {
 	})
 	nodes.RegisterNodeAdaptor(entity.NodeTypeTextProcessor, func() nodes.NodeAdaptor {
 		return &textprocessor.Config{}
+	})
+	nodes.RegisterNodeAdaptor(entity.NodeTypeTextTrimmer, func() nodes.NodeAdaptor {
+		return &texttrimmer.Config{}
 	})
 	nodes.RegisterNodeAdaptor(entity.NodeTypeIntentDetector, func() nodes.NodeAdaptor {
 		return &intentdetector.Config{}
