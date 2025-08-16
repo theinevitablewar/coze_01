@@ -24,7 +24,7 @@ export enum TrimMethod {
   Custom = 'custom',
 }
 
-export const PREFIX_STR = 'TextTrimmer';
+export const PREFIX_STR = 'String';
 
 /** 前端表单字段名 */
 export const FIELD_NAME_MAP = {

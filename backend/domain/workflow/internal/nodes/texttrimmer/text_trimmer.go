@@ -101,15 +101,15 @@ type TextTrimmer struct {
 const OutputKey = "output"
 
 func (t *TextTrimmer) Invoke(ctx context.Context, input map[string]any) (map[string]any, error) {
-	// 获取输入文本
-	value, ok := input["text"]
+	// 获取输入文本 - 使用与 textprocessor 相同的参数名
+	value, ok := input["String"]
 	if !ok {
-		return nil, fmt.Errorf("input text required")
+		return nil, fmt.Errorf("input string required")
 	}
 
 	valueString, ok := value.(string)
 	if !ok {
-		return nil, fmt.Errorf("input text field must be string type but got %T", value)
+		return nil, fmt.Errorf("input string field must be string type but got %T", value)
 	}
 
 	var result string

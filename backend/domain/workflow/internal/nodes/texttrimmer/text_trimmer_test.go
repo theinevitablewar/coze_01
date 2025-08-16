@@ -29,7 +29,7 @@ func TestTextTrimmer_TrimLeadingTrailing(t *testing.T) {
 	}
 
 	input := map[string]any{
-		"text": "  hello world  ",
+		"String": "  hello world  ",
 	}
 
 	result, err := trimmer.Invoke(context.Background(), input)
@@ -43,7 +43,7 @@ func TestTextTrimmer_TrimAll(t *testing.T) {
 	}
 
 	input := map[string]any{
-		"text": "  hello\tworld\n  ",
+		"String": "  hello\tworld\n  ",
 	}
 
 	result, err := trimmer.Invoke(context.Background(), input)
@@ -57,7 +57,7 @@ func TestTextTrimmer_TrimLeading(t *testing.T) {
 	}
 
 	input := map[string]any{
-		"text": "  hello world  ",
+		"String": "  hello world  ",
 	}
 
 	result, err := trimmer.Invoke(context.Background(), input)
@@ -71,7 +71,7 @@ func TestTextTrimmer_TrimTrailing(t *testing.T) {
 	}
 
 	input := map[string]any{
-		"text": "  hello world  ",
+		"String": "  hello world  ",
 	}
 
 	result, err := trimmer.Invoke(context.Background(), input)
@@ -86,7 +86,7 @@ func TestTextTrimmer_TrimCustom(t *testing.T) {
 	}
 
 	input := map[string]any{
-		"text": "...hello world!!!",
+		"String": "...hello world!!!",
 	}
 
 	result, err := trimmer.Invoke(context.Background(), input)
@@ -103,13 +103,13 @@ func TestTextTrimmer_InvalidInput(t *testing.T) {
 	input := map[string]any{}
 	_, err := trimmer.Invoke(context.Background(), input)
 	assert.Error(t, err)
-	assert.Contains(t, err.Error(), "input text required")
+	assert.Contains(t, err.Error(), "input string required")
 
 	// 测试错误类型
 	input = map[string]any{
-		"text": 123,
+		"String": 123,
 	}
 	_, err = trimmer.Invoke(context.Background(), input)
 	assert.Error(t, err)
-	assert.Contains(t, err.Error(), "input text field must be string type")
+	assert.Contains(t, err.Error(), "input string field must be string type")
 }

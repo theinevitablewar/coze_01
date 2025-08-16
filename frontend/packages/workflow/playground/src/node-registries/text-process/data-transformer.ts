@@ -27,6 +27,7 @@ import {
   PREFIX_STR,
   StringMethod,
 } from './constants';
+import {Logger} from "@coze-arch/logger";
 
 /**
  * Find a field in InputValueDTO
@@ -233,6 +234,6 @@ export const formatOnSubmit = (value: FormData) => {
     default:
       break;
   }
-
+  console.info(baseValue,"baseValue text-process.baseValue")
   return baseValue;
 };

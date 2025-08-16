@@ -21,7 +21,6 @@ import { TrimMethod, BACK_END_NAME_MAP, FIELD_NAME_MAP } from './constants';
 import { type TrimmerFormData, type TrimmerNodeData } from './types';
 import { getDefaultOutput } from './utils';
 import type {BackendData} from "@/node-registries/text-trimmer/types";
-import {Logger} from "@coze-arch/logger";
 
 /**
  * 在 InputValueDTO 中查找字段
@@ -53,7 +52,7 @@ export const formatOnInit = (value: any): BackendData => {
       outputs: getDefaultOutput(),
     };
   }
-  Logger.info("value -=-->" ,value);
+  console.info("value -=-->" ,value);
   const { nodeMeta, inputs, outputs } = value;
   const { trimParams } = inputs || {};
 
@@ -88,7 +87,14 @@ export const formatOnInit = (value: any): BackendData => {
  */
 export const formatOnSubmit = (value: TrimmerFormData): any => {
   const { method, customChars, inputParameters, nodeMeta, outputs } = value;
-
+  const baseValue = {
+    nodeMeta,
+    inputs: {
+      method,
+      inputParameters,
+    },
+    outputs,
+  };
   const trimParams: InputValueDTO[] = [
     {
       name: BACK_END_NAME_MAP.trimType,
@@ -103,7 +109,7 @@ export const formatOnSubmit = (value: TrimmerFormData): any => {
       input: BlockInput.fromLiteral(customChars),
     });
   }
-
+  console.info(baseValue,"baseValue text-trimmer.baseValue")
   return {
     nodeMeta,
     inputs: {

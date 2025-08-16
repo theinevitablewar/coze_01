@@ -25,10 +25,10 @@ import { InputParameters } from '../common/components';
 import {TrimMethod, TRIM_METHOD_OPTIONS, COMMON_CUSTOM_CHARS, TRIMMER_DEFAULT_INPUTS} from './constants';
 import {
   MethodSelectorSetter,
-  Inputs,
-  // ConcatSetting,
-  // DelimiterSelectorField,
+  // 使用 text-process 的 Inputs 组件
 } from './components';
+// 导入 text-process 的 Inputs 组件
+import { Inputs } from '../text-process/components';
 
 const Render = () => {
   // 监听去空格方法变化
@@ -46,12 +46,12 @@ const Render = () => {
       <Inputs
         name="inputParameters"
         defaultValue={TRIMMER_DEFAULT_INPUTS}
+        // TextTrimmer 只需要一个字符串输入
         minItems={1}
-        maxItems={ Number.MAX_SAFE_INTEGER}
+        maxItems={1}
+        // 只能输入字符串类型
         inputType={ViewVariableType.String}
-        disabledTypes={
-          []
-        }
+        disabledTypes={ViewVariableType.getComplement([ViewVariableType.String])}
       />
 
       {/* 输出参数 */}
