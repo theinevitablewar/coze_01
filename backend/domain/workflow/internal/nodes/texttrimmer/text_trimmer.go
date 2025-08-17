@@ -134,7 +134,7 @@ func (t *TextTrimmer) Invoke(ctx context.Context, input map[string]any) (map[str
 		if t.customChars == "" {
 			result = strings.TrimSpace(valueString)
 		} else {
-			result = strings.ReplaceAll(valueString, t.customChars, "")
+			result = strings.Trim(valueString, t.customChars)
 		}
 	default:
 		return nil, fmt.Errorf("unsupported trim type: %s", t.trimType)
